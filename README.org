@@ -1,0 +1,3 @@
+dailyRecord application
+
+*Documentation forthcoming*
