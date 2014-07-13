@@ -11,6 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140713214101) do
+
+  create_table "tracks", force: true do |t|
+    t.string   "author"
+    t.string   "title"
+    t.text     "reflection"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "audio_file_name"
+    t.string   "audio_content_type"
+    t.integer  "audio_file_size"
+    t.datetime "audio_updated_at"
+  end
 
 end

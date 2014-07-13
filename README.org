@@ -1,3 +1,221 @@
-dailyRecord application
+Daily Record
+http://daily-record.herokuapp.com
 
-*Documentation forthcoming*
+Starting off following this [[http://code.tutsplus.com/articles/create-a-simple-music-streaming-app-with-ruby-on-rails--net-18437][tutorial]]. 
+It's kind of old, but let's see what we can get out of it anyway. For portions 
+that I know are out of date, I am referencing [[https://onemonth.com/steps/paperclip-to-amazon-s3-images-on-heroku][onemonthrails]].
+
+[[./FILES.org][Files]]
+
+* Generate Track scaffold
+
+  : rails g scaffold tracks author:string title:string reflection:text
+  : rake db:migrate
+
+
+* Install the 'aws-sdk' ruby gem
+
+  [[./Gemfile][Gemfile]]
+
+  : gem 'aws-sdk', '~> 1.47.0'
+
+
+* Install paperclip
+
+  [[./Gemfile][Gemfile]]  
+
+  : gem 'paperclip', '~> 4.2.0'
+
+
+* Setup Devise
+
+  [[./Gemfile][Gemfile]]  
+
+** Install Devise
+
+   : gem 'devise'
+   : bundle install
+   : rails g devise:install
+
+
+** Setup Devise
+
+   - [ ] Define default url options in environments files
+
+     - [ ] [[./config/environments/development.rb][development.rb]]
+
+       : config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+     - [ ] [[./config/environments/production.rb][production.rb]]
+
+       : config.action_mailer.default_url_options = { host: 'http://daily-record.herokuapp.com' }
+
+   - [ ] Define root_url to *something*
+
+     [[./config/routes.rb][routes.rb]]
+
+     : root to: "tracks#index"
+
+   - [ ] Place flash messages
+
+     [[./app/views/layouts/application.html.erb][application view]]
+
+     : <p class="notice"><%= notice %></p>
+     : <p class="alert"><%= alert %></p>
+
+   - [ ] Generate Devise views
+
+     : rails g devise:views
+
+
+* Configure tracks model with paperclip
+
+  [[./app/models/track.rb][track.rb]]
+
+  : belongs_to :user
+  : has_attached_file :audio
+
+** Generate a paperclip migration
+
+   : rails g paperclip track audio
+   : rake db:migrate
+
+
+** Update the Tracks controller for strong parameters
+
+   [[./app/controllers/tracks_controller.rb][tracks controller]]
+
+   : def track_params
+   :   params.require(:track).permit(:author, :title, :reflection, :audio)
+   : end
+
+   - [ ] As of version 4.0, all attachments are required to include a 
+     content_type validation, a file_name validation, or to explicitly state 
+     that they're not going to have either. Paperclip raises 
+     'MissingRequiredValidatorError' if you do not do this.
+
+     http://stackoverflow.com/questions/21897725/papercliperrorsmissingrequiredvalidatorerror-with-rails-4
+
+     - [ ] add to [[./app/models/track.rb][Track Model]]
+
+       : validates_attachment_content_type :audio, :content_type => ['audio/mp3','audio/mpeg','audio/wav']
+
+   - [ ] WAV type?
+
+** Update Tracks views
+
+   - [ ] [[./app/views/tracks/_form.html.erb][Form]]
+
+     : <div class="form-group">
+     :   <%= f.label :audio %>
+     :   <%= f.file_field :audio, class: "form-control" %>
+     : </div>
+
+   - [ ] [[./app/views/tracks/show.html.erb][Show]]
+
+     http://apidock.com/rails/ActionView/Helpers/AssetTagHelper/audio_tag
+
+     : <p>
+     :   <strong>Audio:</strong>
+     :   <%= audio_tag @track.audio.url %>
+     : </p>
+
+   - [ ] [[./app/views/tracks/index.html.erb][Index]]
+
+     : <td><%= audio_tag track.audio.url %></td>
+
+
+
+
+* Configure S3
+
+  [[./config/environments/production.rb][production.rb]]
+
+  : config.paperclip_defaults = {
+  :   :storage => :s3,
+  :   :s3_credentials => {
+  :     :bucket => ENV['AWS_BUCKET'],
+  :     :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+  :     :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+  :   }
+  : }
+
+  - [ ] Create an S3 bucket in AWS
+
+    dailyRecordTracks
+
+    - [ ] Grant permission to everyone to upate/delete, edit, view
+
+** Get secret keys from AWS and configure heroku configs
+
+   : heroku config:set AWS_BUCKET=dailyRecordTracks
+   : heroku config:set AWS_ACCESS_KEY_ID=***
+   : heroku config:set AWS_SECRET_ACCESS_KEY=***
+
+* Set up for audio playback
+
+  - [ ] [[https://github.com/tobsch/mediaelement_rails][MediaelementRails]]
+
+    [[./Gemfile][Gemfile]]
+
+    : gem 'mediaelement_rails'
+    : bundle install
+
+    [[./app/assets/javascripts/application.js][application.js]]
+
+    : //= require mediaelement_rails
+
+    [[./app/assets/stylesheets/application.css.scss]]
+    [[./app/assets/stylesheets][Stylesheets]]
+
+    : *= require mediaelement_rails
+    and optionally:
+    : *= require mediaelement_rails/mejs-skins
+    
+
+* Set up Bootstrap
+
+** Bootstrap-sass
+    
+    - [ ] Create custom bootstrap stylesheet
+
+      [[./app/assets/stylesheets/bootstrap_and_customization.css.scss]]
+      
+      - [ ] create file
+
+            : echo "@import 'bootsrap';" > app/assets/stylesheets/bootstrap_and_customization.css.scss
+
+      *NOTE* Place new variables before "@import 'bootstrap'"
+
+      - [ ] Fonts
+
+  	    /EXAMPLE:/
+	    : @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,700italic,700|Clicker+Script);
+
+      - [ ] Variables
+
+	    : $phill-grn: #3f8000;
+
+    - [ ] Require Bootstrap's Javascript, after jquery_ujs 
+
+      [[./app/assets/javascripts/application.js]]
+
+      : //= require jquery
+      : //= require jquery_ujs
+      : //= require bootstrap
+      : //= require turbolinks
+      : //= require_tree .
+
+  
+* Configure Views
+
+** Static Pages
+
+** Devise Views
+
+   [[./app/views/devise][Devise Views]]
+
+
+** Tracks
+
+   [[./app/views/tracks]]

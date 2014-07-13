@@ -1,0 +1,24 @@
+
+
+[[./Gemfile][Gemfile]]
+[[./config/environments/development.rb][development]]
+  nb: start server with 'rails s' instead of 'foreman start' when debugging
+[[./config/routes.rb][routes]]
+[[./db/migrate][migrations]]
+[[./app/assets/javascripts/application.js][application.js]]
+[[./config/application.rb][application.rb]]
+[[./app/controllers/application_controller.rb][application controller]]
+[[./app/controllers/pages_controller.rb][pages controller]]
+[[./config/unicorn.rb][unicorn.rb]]
+[[./config/initializers/timeout.rb]]
+[[./config/newrelic.yml][newrelic.yml]]
+[[./config/secrets.yml][yore]]
+[[./config/environments/production.rb][production.rb]]
+[[./config/initializers/assets.rb][assets.rb]]
+[[./test/test_helper.rb]]
+[[./Procfile]]
+[[./.gitignore][.gitignore]]
+[[./mysite.thor]]
+[[./app/controllers/tracks_controller.rb][tracks controller]]
+
+[[./app/controllers/contacts_controller.rb][contacts controller]]
