@@ -17,7 +17,7 @@
 
 <p>
   <strong>Audio:</strong>
-  <%= audio_tag @track.audio.url %>
+  <%= audio_tag(@track.audio.url, controls: true, class: "mejs-player") %>
 </p>
 
 <%= link_to 'Edit', edit_track_path(@track) %> |
