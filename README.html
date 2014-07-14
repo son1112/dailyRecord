@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>README</title>
-<!-- 2014-07-13 Sun 23:11 -->
+<!-- 2014-07-14 Mon 08:32 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Ander" />
@@ -164,16 +164,17 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#sec-7">7. Set up for audio playback</a></li>
-<li><a href="#sec-8">8. Set up Bootstrap</a>
+<li><a href="#sec-8">8. User/Track associations</a></li>
+<li><a href="#sec-9">9. Set up Bootstrap</a>
 <ul>
-<li><a href="#sec-8-1">8.1. Bootstrap-sass</a></li>
+<li><a href="#sec-9-1">9.1. Bootstrap-sass</a></li>
 </ul>
 </li>
-<li><a href="#sec-9">9. Configure Views</a>
+<li><a href="#sec-10">10. Configure Views</a>
 <ul>
-<li><a href="#sec-9-1">9.1. Static Pages</a></li>
-<li><a href="#sec-9-2">9.2. Devise Views</a></li>
-<li><a href="#sec-9-3">9.3. Tracks</a></li>
+<li><a href="#sec-10-1">10.1. Pages / Songs</a></li>
+<li><a href="#sec-10-2">10.2. Devise Views</a></li>
+<li><a href="#sec-10-3">10.3. Tracks</a></li>
 </ul>
 </li>
 </ul>
@@ -182,6 +183,10 @@ for the JavaScript code in this tag.
 <p>
 Daily Record
 <a href="http://daily-record.herokuapp.com">http://daily-record.herokuapp.com</a>
+</p>
+
+<p>
+Simple use multi-track collaborative music blog
 </p>
 
 <p>
@@ -236,6 +241,10 @@ gem 'paperclip', '~&gt; 4.2.0'
 <div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4"><span class="section-number-2">4</span> Setup Devise</h2>
 <div class="outline-text-2" id="text-4">
+<p>
+<a href="https://github.com/plataformatec/devise">https://github.com/plataformatec/devise</a>
+</p>
+
 <p>
 <a href="./Gemfile">Gemfile</a>  
 </p>
@@ -303,6 +312,14 @@ root to: "tracks#index"
 
 <pre class="example">
 rails g devise:views
+</pre>
+</li>
+
+<li><code>[&#xa0;]</code> Generate Devise User model
+
+<pre class="example">
+rails g devise User
+rake db:migrate
 </pre>
 </li>
 </ul>
@@ -461,6 +478,7 @@ heroku config:set AWS_SECRET_ACCESS_KEY=***
 </div>
 </div>
 
+
 <div id="outline-container-sec-7" class="outline-2">
 <h2 id="sec-7"><span class="section-number-2">7</span> Set up for audio playback</h2>
 <div class="outline-text-2" id="text-7">
@@ -505,11 +523,47 @@ and optionally:
 
 
 <div id="outline-container-sec-8" class="outline-2">
-<h2 id="sec-8"><span class="section-number-2">8</span> Set up Bootstrap</h2>
+<h2 id="sec-8"><span class="section-number-2">8</span> User/Track associations</h2>
 <div class="outline-text-2" id="text-8">
-</div><div id="outline-container-sec-8-1" class="outline-3">
-<h3 id="sec-8-1"><span class="section-number-3">8.1</span> Bootstrap-sass</h3>
-<div class="outline-text-3" id="text-8-1">
+<pre class="example">
+rails g migration add_user_id_to_tracks user_id:integer:index
+rake db:migrate
+</pre>
+
+<p>
+<a href="./app/models/track.rb">track.rb</a>
+</p>
+
+<pre class="example">
+belongs_to :user
+</pre>
+
+<p>
+<a href="./app/models/user.rb">user.rb</a>
+</p>
+
+<pre class="example">
+class User &lt; ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :tracks
+end
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Set up Bootstrap</h2>
+<div class="outline-text-2" id="text-9">
+</div><div id="outline-container-sec-9-1" class="outline-3">
+<h3 id="sec-9-1"><span class="section-number-3">9.1</span> Bootstrap-sass</h3>
+<div class="outline-text-3" id="text-9-1">
 <ul class="org-ul">
 <li><code>[&#xa0;]</code> Create custom bootstrap stylesheet
 
@@ -569,16 +623,16 @@ $phill-grn: #3f8000;
 </div>
 
 
-<div id="outline-container-sec-9" class="outline-2">
-<h2 id="sec-9"><span class="section-number-2">9</span> Configure Views</h2>
-<div class="outline-text-2" id="text-9">
-</div><div id="outline-container-sec-9-1" class="outline-3">
-<h3 id="sec-9-1"><span class="section-number-3">9.1</span> Static Pages</h3>
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Configure Views</h2>
+<div class="outline-text-2" id="text-10">
+</div><div id="outline-container-sec-10-1" class="outline-3">
+<h3 id="sec-10-1"><span class="section-number-3">10.1</span> Pages / Songs</h3>
 </div>
 
-<div id="outline-container-sec-9-2" class="outline-3">
-<h3 id="sec-9-2"><span class="section-number-3">9.2</span> Devise Views</h3>
-<div class="outline-text-3" id="text-9-2">
+<div id="outline-container-sec-10-2" class="outline-3">
+<h3 id="sec-10-2"><span class="section-number-3">10.2</span> Devise Views</h3>
+<div class="outline-text-3" id="text-10-2">
 <p>
 <a href="./app/views/devise">Devise Views</a>
 </p>
@@ -586,9 +640,9 @@ $phill-grn: #3f8000;
 </div>
 
 
-<div id="outline-container-sec-9-3" class="outline-3">
-<h3 id="sec-9-3"><span class="section-number-3">9.3</span> Tracks</h3>
-<div class="outline-text-3" id="text-9-3">
+<div id="outline-container-sec-10-3" class="outline-3">
+<h3 id="sec-10-3"><span class="section-number-3">10.3</span> Tracks</h3>
+<div class="outline-text-3" id="text-10-3">
 <p>
 <a href="./app/views/tracks">./app/views/tracks</a>
 </p>
