@@ -17,13 +17,15 @@
   <tbody>
     <% @tracks.each do |track| %>
       <tr>
-        <td><%= track.author %></td>
+        <td><%= track.user.email if track.user %></td>
         <td><%= track.title %></td>
         <td><%= track.reflection %></td>
         <td><%= audio_tag(track.audio.url, controls: true, class: "mejs-player") %></td>
         <td><%= link_to 'Show', track %></td>
-        <td><%= link_to 'Edit', edit_track_path(track) %></td>
-        <td><%= link_to 'Destroy', track, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<% if user_signed_in? %>
+          <td><%= link_to 'Edit', edit_track_path(track) %></td>
+          <td><%= link_to 'Destroy', track, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<% end %>
       </tr>
     <% end %>
   </tbody>
@@ -31,7 +33,11 @@
 
 <br>
 
-<%= link_to 'New Track', new_track_path %>
+<% if user_signed_in? %>
+  <%= link_to 'New Track', new_track_path %>
+<% else %>
+  <%= link_to 'Sign up to add your own tracks!', new_user_registration_path %>
+<% end %>
 
 <script>
 

@@ -204,7 +204,11 @@ that I know are out of date, I am referencing [[https://onemonth.com/steps/paper
   :   has_many :tracks
   : end
 
-  
+** Authentication
+
+   [[./app/controllers/tracks_controller.rb][Tracks Controller]]
+
+
 
 * Set up Bootstrap
 
@@ -242,7 +246,16 @@ that I know are out of date, I am referencing [[https://onemonth.com/steps/paper
   
 * Configure Views
 
-** Pages / Songs
+** Application
+
+   [[./app/views/layouts/application.html.erb][Application View]]
+
+   [[./app/views/layouts/_header.html.erb][Header]]
+
+** Static Pages
+
+** Songs
+
 
 ** Devise Views
 

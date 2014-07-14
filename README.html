@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>README</title>
-<!-- 2014-07-14 Mon 08:32 -->
+<!-- 2014-07-14 Mon 10:44 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Ander" />
@@ -164,7 +164,11 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#sec-7">7. Set up for audio playback</a></li>
-<li><a href="#sec-8">8. User/Track associations</a></li>
+<li><a href="#sec-8">8. User/Track associations</a>
+<ul>
+<li><a href="#sec-8-1">8.1. Authentication</a></li>
+</ul>
+</li>
 <li><a href="#sec-9">9. Set up Bootstrap</a>
 <ul>
 <li><a href="#sec-9-1">9.1. Bootstrap-sass</a></li>
@@ -172,9 +176,11 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#sec-10">10. Configure Views</a>
 <ul>
-<li><a href="#sec-10-1">10.1. Pages / Songs</a></li>
-<li><a href="#sec-10-2">10.2. Devise Views</a></li>
-<li><a href="#sec-10-3">10.3. Tracks</a></li>
+<li><a href="#sec-10-1">10.1. Application</a></li>
+<li><a href="#sec-10-2">10.2. Static Pages</a></li>
+<li><a href="#sec-10-3">10.3. Songs</a></li>
+<li><a href="#sec-10-4">10.4. Devise Views</a></li>
+<li><a href="#sec-10-5">10.5. Tracks</a></li>
 </ul>
 </li>
 </ul>
@@ -554,6 +560,15 @@ class User &lt; ActiveRecord::Base
 end
 </pre>
 </div>
+
+<div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> Authentication</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+<a href="./app/controllers/tracks_controller.rb">Tracks Controller</a>
+</p>
+</div>
+</div>
 </div>
 
 
@@ -627,12 +642,30 @@ $phill-grn: #3f8000;
 <h2 id="sec-10"><span class="section-number-2">10</span> Configure Views</h2>
 <div class="outline-text-2" id="text-10">
 </div><div id="outline-container-sec-10-1" class="outline-3">
-<h3 id="sec-10-1"><span class="section-number-3">10.1</span> Pages / Songs</h3>
+<h3 id="sec-10-1"><span class="section-number-3">10.1</span> Application</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+<a href="./app/views/layouts/application.html.erb">Application View</a>
+</p>
+
+<p>
+<a href="./app/views/layouts/_header.html.erb">Header</a>
+</p>
+</div>
 </div>
 
 <div id="outline-container-sec-10-2" class="outline-3">
-<h3 id="sec-10-2"><span class="section-number-3">10.2</span> Devise Views</h3>
-<div class="outline-text-3" id="text-10-2">
+<h3 id="sec-10-2"><span class="section-number-3">10.2</span> Static Pages</h3>
+</div>
+
+<div id="outline-container-sec-10-3" class="outline-3">
+<h3 id="sec-10-3"><span class="section-number-3">10.3</span> Songs</h3>
+</div>
+
+
+<div id="outline-container-sec-10-4" class="outline-3">
+<h3 id="sec-10-4"><span class="section-number-3">10.4</span> Devise Views</h3>
+<div class="outline-text-3" id="text-10-4">
 <p>
 <a href="./app/views/devise">Devise Views</a>
 </p>
@@ -640,9 +673,9 @@ $phill-grn: #3f8000;
 </div>
 
 
-<div id="outline-container-sec-10-3" class="outline-3">
-<h3 id="sec-10-3"><span class="section-number-3">10.3</span> Tracks</h3>
-<div class="outline-text-3" id="text-10-3">
+<div id="outline-container-sec-10-5" class="outline-3">
+<h3 id="sec-10-5"><span class="section-number-3">10.5</span> Tracks</h3>
+<div class="outline-text-3" id="text-10-5">
 <p>
 <a href="./app/views/tracks">./app/views/tracks</a>
 </p>

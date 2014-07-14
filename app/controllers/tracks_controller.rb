@@ -1,5 +1,7 @@
 class TracksController < ApplicationController
   before_action :set_track, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @tracks = Track.all
@@ -9,14 +11,14 @@ class TracksController < ApplicationController
   end
 
   def new
-    @track = Track.new
+    @track = current_user.tracks.build
   end
 
   def edit
   end
 
   def create
-    @track = Track.new(track_params)
+    @track = current_user.tracks.build(track_params)
 
     respond_to do |format|
       if @track.save
@@ -53,6 +55,11 @@ class TracksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_track
       @track = Track.find(params[:id])
+    end
+
+    def correct_user
+      @track = current_user.tracks.find_by(id: params[:id])
+      redirect_to tracks_path, notice: "Not authorized to edit this track" if @track.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

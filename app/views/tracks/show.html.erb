@@ -20,5 +20,7 @@
   <%= audio_tag(@track.audio.url, controls: true, class: "mejs-player") %>
 </p>
 
-<%= link_to 'Edit', edit_track_path(@track) %> |
+<% if user_signed_in? %>
+  <%= link_to 'Edit', edit_track_path(@track) %> |
+<% end %>
 <%= link_to 'Back', tracks_path %>
