@@ -256,12 +256,10 @@ that I know are out of date, I am referencing [[https://onemonth.com/steps/paper
 
 ** Songs
 
+* Style
+  
+  [[./app/assets/stylesheets][Stylesheets]]
 
-** Devise Views
+  [[./app/assets/stylesheets/bootstrap_and_customization.css.scss][Custom Bootstrap]]
 
-   [[./app/views/devise][Devise Views]]
-
-
-** Tracks
-
-   [[./app/views/tracks]]
+  [[./app/assets/stylesheets/tracks.css.scss][Tracks Styles]]

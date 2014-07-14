@@ -1,1 +1,47 @@
+
+
 @import 'bootstrap';
+
+.padded {
+    padding: 15px;
+}
+
+#primary-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: transparent;
+
+    ul {
+	list-style-type: none;
+	display: inline;
+    }
+    ul li {
+	@extend .padded;
+	
+	display: inline-block;
+	background: red;
+	color: white;
+
+	a {
+	    color: white;
+	}
+    }
+}
+
+#title {
+    background: red;
+    color: white;
+    float: right;
+
+    position: absolute;
+    top: 15px; right:0;
+    padding: 5px 15px 5px 15px;
+
+    font-size: 2vw;
+}
+
+.messages {
+    position: relative;
+    top: 0; left: 10%;
+}

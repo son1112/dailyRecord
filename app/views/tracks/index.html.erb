@@ -1,35 +1,36 @@
-<h1>Listing tracks</h1>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Author</th>
-      <th>Title</th>
-      <th>Reflection</th>
-      <th>Audio</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tracks.each do |track| %>
+  <table class="table tracks">
+    <thead>
       <tr>
-        <td><%= track.user.email if track.user %></td>
-        <td><%= track.title %></td>
-        <td><%= track.reflection %></td>
-        <td><%= audio_tag(track.audio.url, controls: true, class: "mejs-player") %></td>
-        <td><%= link_to 'Show', track %></td>
+	<th>Author</th>
+	<th>Title</th>
+	<th>Reflection</th>
+	<th>Audio</th>
 	<% if user_signed_in? %>
-          <td><%= link_to 'Edit', edit_track_path(track) %></td>
-          <td><%= link_to 'Destroy', track, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	  <th></th>
+	  <th></th>
 	<% end %>
+	<th></th>
+
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @tracks.each do |track| %>
+	<tr>
+          <td><%= track.user.email if track.user %></td>
+          <td><%= track.title %></td>
+          <td><%= track.reflection %></td>
+          <td><%= audio_tag(track.audio.url, controls: true, class: "mejs-player") %></td>
+          <td><%= link_to 'Show', track %></td>
+	  <% if user_signed_in? %>
+            <td><%= link_to 'Edit', edit_track_path(track) %></td>
+            <td><%= link_to 'Destroy', track, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	  <% end %>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+
 
 <br>
 

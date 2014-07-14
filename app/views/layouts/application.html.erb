@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DailyRecord</title>
+  <title>My Daily Record</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -10,11 +10,10 @@
 
   <%= render 'layouts/header' %>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-
-  <div class="container">
-    <%= yield %>
+  <div style="margin: 100px 0 0 0;">
+    <div class="container">
+      <%= yield %>
+    </div>
   </div>
 
 </body>

@@ -1,11 +1,20 @@
-<ul>
-  <li><%= link_to 'Home', root_path %></li>
-  <% if user_signed_in? %>
-    <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-    <li><%= link_to 'Tracks', tracks_path %></li>
-    <li><%= link_to 'New Track', new_track_path %></li>
-  <% else %>
-    <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-    <li><%= link_to 'Sign In', new_user_session_path %></li>
-  <% end %>
-</ul>
+<div id="primary-nav">
+  <ul>
+    <li><%= link_to 'Home', root_path %></li>
+    <% if user_signed_in? %>
+      <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+      <li><%= link_to 'Tracks', tracks_path %></li>
+      <li><%= link_to 'New Track', new_track_path %></li>
+    <% else %>
+      <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+      <li><%= link_to 'Sign In', new_user_session_path %></li>
+    <% end %>
+  </ul>
+
+  <div class="messages">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </div>
+</div>
+
+<div id="title"><em>Daily</em>Record</div>
