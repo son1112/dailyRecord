@@ -131,6 +131,8 @@ that I know are out of date, I am referencing [[https://onemonth.com/steps/paper
 
    - [ ] [[./app/views/tracks/index.html.erb][Index]]
 
+     [[./app/views/tracks/index.html.erb]]
+
      : <td><%= audio_tag track.audio.url %></td>
 
 

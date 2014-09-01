@@ -1,7 +1,7 @@
   <table class="table tracks">
     <thead>
       <tr>
-	<th>Author</th>
+	<!--<th>Author</th>-->
 	<th>Title</th>
 	<th>Reflection</th>
 	<th>Audio</th>
@@ -17,7 +17,7 @@
     <tbody>
       <% @tracks.each do |track| %>
 	<tr>
-          <td><%= track.user.email if track.user %></td>
+          <!--<td><%#= track.user.email if track.user %></td>-->
           <td><%= track.title %></td>
           <td><%= track.reflection %></td>
           <td><%= audio_tag(track.audio.url, controls: true, class: "mejs-player") %></td>
