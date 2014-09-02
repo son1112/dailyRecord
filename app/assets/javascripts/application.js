@@ -15,4 +15,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require mediaelement_rails
+//= require skrollr
+//= require skrollr.menu
+//= require skrollr.ie
 //= require_tree .
