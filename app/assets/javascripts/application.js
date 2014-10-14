@@ -18,4 +18,5 @@
 //= require skrollr
 //= require skrollr.menu
 //= require skrollr.ie
+//= require_self
 //= require_tree .
