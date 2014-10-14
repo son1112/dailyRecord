@@ -1,8 +1,9 @@
-  <table class='table tracks'
+  <table class='table table-striped table-hover table-responsive tracks'
 	 >
-    <thead>
+    <thead data-0='opacity:0.9;'
+	   data-150='opacity:0;'
+	   >
       <tr>
-	<!--<th>Author</th>-->
 	<th>Title</th>
 	<th>Reflection</th>
 	<th>Audio</th>
@@ -10,13 +11,16 @@
 	  <th></th>
 	  <th></th>
 	<% end %>
-	<th></th>
-
       </tr>
     </thead>
 
     <tbody>
-      <% @tracks.each do |track| %>
+      <tr style='height:150px;'>
+	<td></td>
+	<td></td>
+	<td style='position:absolute;top:10px;right:-150px;'><%= render 'layouts/signup' %></td>
+      </tr>
+      <% @tracks.reverse.each do |track| %>
 	<tr>
           <!--<td><%#= track.user.email if track.user %></td>-->
           <td><%= track.title %></td>

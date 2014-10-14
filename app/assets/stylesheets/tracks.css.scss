@@ -6,17 +6,28 @@
 .tracks {
     background: white;
     color: black;
-    border: 2px solid red;
-    font-size: 2vw;
-    border-radius: 0 50px 0 50px;
+    border: 2px solid #c5eff7;
     width: 60%;
     position: relative;
     right: -200px;
     top: -50px;
     thead {
+	font-size: 1vw;
+	font-family: 'Raleway','Titillium Web';
 	background: red;
 	box-shadow: -12px 10px 10px -10px black;
 	border-radius: 3px;
 	color: white;
+	border-width: 0px;
+	position: fixed;
+	left: 310px;
+	width: 100%;
+	tr {
+	    background: red;
+	    th {
+		padding: 15px;
+
+	    }
+	}
     }
 }
